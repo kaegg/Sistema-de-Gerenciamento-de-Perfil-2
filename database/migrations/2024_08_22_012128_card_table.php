@@ -13,7 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('cartao', function($table){
+            $table->bigIncrements('idCartao');
+            $table->foreignId('idUsuario');
+            $table->string('numeroCartao', length: 50);
+            $table->date('validade');
+            $table->integer('cvv');
+            $table->string('tipo', length: 1);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('cartao');
     }
 };

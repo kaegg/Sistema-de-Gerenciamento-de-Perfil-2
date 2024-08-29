@@ -13,23 +13,24 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user', function($table){
-            $table->increments('idUser');
-            $table->string('nome');
-            $table->string('sobrenome');
-            $table->string('rg');
-            $table->string('cpf');
-            $table->string('endereco');
+        Schema::create('usuario', function($table){
+            $table->bigIncrements('idUsuario');
+            $table->string('nome', length: 20);
+            $table->string('sobrenome', length: 50);
+            $table->string('rg', length: 20);
+            $table->string('cpf', length: 14);
+            $table->string('endereco', length: 50);
             $table->integer('numero');
-            $table->string('bairro');
-            $table->string('complemento');
-            $table->string('uf');
-            $table->string('telefone');
-            $table->string('email')->nullable(false);
-            $table->string('senha')->nullable(false);
-            $table->string('idCartao');
-            $table->string('idPix');
+            $table->string('bairro', length: 50);
+            $table->string('complemento', length: 20);
+            $table->string('uf', length: 2);
+            $table->string('telefone', length: 14);
+            $table->string('email', length: 100)->nullable(false);
+            $table->string('senha', length: 100)->nullable(false);
+            $table->foreignId('idCartao');
+            $table->foreignId('idPix');
             $table->binary('foto');
+            $table->timestamps();
         });
     }
 
@@ -40,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('usuario');
     }
 };

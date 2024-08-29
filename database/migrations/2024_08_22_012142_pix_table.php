@@ -13,7 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('pix', function($table){
+            $table->bigIncrements('idPix');
+            $table->foreignId('idUsuario');
+            $table->string('chave', length: 100);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('pix');
     }
 };

@@ -13,7 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('comentario', function($table){
+            $table->bigIncrements('idComentario');
+            $table->foreignId('idUsuario');
+            $table->string('comentario', length: 500);
+            $table->integer('like');
+            $table->integer('deslike');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('comentario');
     }
 };
