@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('comentario', function($table){
+        Schema::create('comentario', function(Blueprint $table){
             $table->bigIncrements('idComentario');
             $table->foreignId('idUsuario');
             $table->string('comentario', length: 500);
