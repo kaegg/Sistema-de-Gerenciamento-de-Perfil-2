@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('usuario', function($table){
+        Schema::create('usuario', function(Blueprint $table){
             $table->bigIncrements('idUsuario');
             $table->string('nome', length: 20);
             $table->string('sobrenome', length: 50);
