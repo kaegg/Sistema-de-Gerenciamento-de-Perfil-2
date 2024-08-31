@@ -20,7 +20,7 @@
         </ul>
     </nav>
 
-    <div class="container" id="updateProfile">
+    <div class="container" id="updateProfile" >
         <div id="tituloUpdateProfile">
             <h1>Atualizar Perfil 
                 <div class="profile-wrapper">
@@ -37,13 +37,13 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="name">Nome:</label>
-                        <input type="text" id="name" class="form-control" required>
+                        <input type="text" id="name" class="form-control" name="nome" required>
                         <span id="nameError" class="error-message"></span>
                     </div>
                     
                     <div class="form-group col-md-6">
                         <label for="lastName">Sobrenome:</label>
-                        <input type="text" id="lastName" class="form-control" required>
+                        <input type="text" id="lastName" class="form-control" name="sobrenome" required>
                         <span id="lastNameError" class="error-message"></span>  
                     </div>
                 </div>
@@ -51,13 +51,13 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="rg" style="margin-top: 15px;">RG:</label>
-                        <input type="text" id="rg" class="form-control" required>
+                        <input type="text" id="rg" class="form-control" name="rg" required>
                         <span id="rgError" class="error-message"></span>
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="cpf" style="margin-top: 15px;">CPF:</label>
-                        <input type="text" id="cpf" class="form-control" required>
+                        <input type="text" id="cpf" class="form-control" name="cpf" required>
                         <span id="cpfError" class="error-message"></span>
                     </div>
                 </div>
@@ -65,19 +65,19 @@
                 <div class="row">
                     <div class="form-group col-md-4">
                         <label for="cep" style="margin-top: 15px;">CEP:</label>
-                        <input type="text" id="cep" class="form-control" required>
+                        <input type="text" id="cep" class="form-control" name="cep" required>
                         <span id="cepError" class="error-message"></span>
                     </div>
                     
                     <div class="form-group col-md-6">
                         <label for="address" style="margin-top: 15px;">Endereço:</label>
-                        <input type="text" id="address" class="form-control" required>
+                        <input type="text" id="address" class="form-control" name="endereco" required>
                         <span id="addressError" class="error-message"></span>
                     </div>
                     
                     <div class="form-group col-md-2">
                         <label for="numero" style="margin-top: 15px;">N°:</label>
-                        <input type="number" id="numero" class="form-control" required>
+                        <input type="number" id="numero" class="form-control" name="numero" required>
                         <span id="numeroError" class="error-message"></span>
                     </div>
                 </div>
@@ -85,19 +85,19 @@
                 <div class="row">
                     <div class="form-group col-md-4">
                         <label for="bairro" style="margin-top: 15px;">Bairro:</label>
-                        <input type="text" id="bairro" class="form-control" required>
+                        <input type="text" id="bairro" class="form-control" name="bairro" required>
                         <span id="bairroError" class="error-message"></span>
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="complemento" style="margin-top: 15px;">Complemento:</label>
-                        <input type="text" id="complemento" class="form-control" required>
+                        <input type="text" id="complemento" class="form-control" name="complemento" required>
                         <span id="complementoError" class="error-message"></span>
                     </div>
 
                     <div class="form-group col-md-2">
                         <label for="uf" style="margin-top: 15px;">UF:</label>
-                        <input type="text" id="uf" class="form-control" required>
+                        <input type="text" id="uf" class="form-control" name="uf" required>
                         <span id="ufError" class="error-message"></span>
                     </div>
                 </div>
@@ -105,13 +105,13 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="phone" style="margin-top: 15px;">Telefone:</label>
-                        <input type="text" id="phone" class="form-control" required>
+                        <input type="text" id="phone" class="form-control" name="telefone" required>
                         <span id="phoneError" class="error-message"></span>
                     </div>
     
                     <div class="form-group col-md-6">
                         <label for="email" style="margin-top: 15px;">E-mail:</label>
-                        <input type="email" id="email" class="form-control inputs" required>
+                        <input type="email" id="email" class="form-control inputs" name="email" required>
                         <span id="emailError" class="error-message"></span>
                     </div>
                 </div>
@@ -160,23 +160,23 @@
             
                             <div class="form-group">
                                 <label for="nomeTitular">Nome:</label>
-                                <input type="text" class="form-control inputs" id="nomeTitular" required>
+                                <input type="text" class="form-control inputs" id="nomeTitular" name="nomeTitular" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="numeroCartao">Número do cartão:</label>
-                                <input type="number" class="form-control inputs" id="numeroCartao" required>
+                                <input type="number" class="form-control inputs" id="numeroCartao" name="numeroCartao" required>
                             </div>
 
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="cvv">CVV:</label>
-                                    <input type="number" class="form-control inputs" id="cvv"  required>
+                                    <input type="number" class="form-control inputs" id="cvv" name="cvv" required>
                                 </div>
     
                                 <div class="form-group col-md-6">
                                     <label for="validade">Validade:</label>
-                                    <input type="month" class="form-control inputs text-center" id="validade" required>
+                                    <input type="month" class="form-control inputs text-center" id="validade" name="validade" required>
                                 </div>
                             </div>
 
@@ -202,7 +202,7 @@
             
                             <div class="form-group">
                                 <label for="chave">Chave pix:</label>
-                                <input type="text" class="form-control inputs" id="chave" required>
+                                <input type="text" class="form-control inputs" id="chave" name="chave" required>
                             </div>
 
                             <button type="submit" class="btn btn-default btnExt">Salvar</button>
