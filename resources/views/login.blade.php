@@ -68,21 +68,30 @@
                     
                     <div class="modal-body">
     
-                        <form id="formCriarConta">
-    
+                        <form id="formCriarConta" action="{{ url('register') }}" method="POST">
+                            @csrf
                             <div class="form-group">
                                 <label for="newEmail">Email:</label>
-                                <input type="email" class="form-control inputs" id="newEmail" required>
+                                <input type="email" class="form-control inputs" id="newEmail" name="email" value="{{ old('email') }}" required >
+                                @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
     
                             <div class="form-group">
                                 <label for="newPassword">Senha:</label>
-                                <input type="password" class="form-control inputs" id="newPassword" required>
+                                <input type="password" class="form-control inputs" id="newPassword" name="password" value="{{ old('password') }}" required>
+                                @error('password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
     
                             <div class="form-group">
                                 <label for="confirmPassword">Confirmar Senha:</label>
-                                <input type="password" class="form-control inputs" id="confirmPassword"Senha" required>
+                                <input type="password" class="form-control inputs" id="confirmPassword" name="password_confirmation" value="{{ old('password_confirmation') }}" required>
+                                @error('password_confirmation')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             
                             <hr>
@@ -96,6 +105,16 @@
                                     Login com Google
                                 </button>
                             </div>
+<!-- 
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif -->
 
                             <button type="submit" class="btn btn-default btnExt">Criar Conta</button>
     
@@ -109,3 +128,11 @@
 
 </body>
 </html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        @if ($errors->any())
+            $('#criarConta').modal('show');
+        @endif
+    });
+</script>

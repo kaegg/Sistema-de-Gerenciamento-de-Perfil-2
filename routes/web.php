@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-Use App\Http\Controllers;
+Use App\Http\Controllers\UsuarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +14,13 @@ Use App\Http\Controllers;
 |
 */
 
-Route::get('usuario', [UsuarioController::class, 'index']);
+// Route::get('usuario', [UsuarioController::class, 'index']);
 
-// Route::get('/', function () {
-//     return view('login');
-// });
+Route::get('/', function () {
+    return view('login');
+});
+
+Route::post('register', [UsuarioController::class, 'register'])->name('register');
 
 // Route::get('/comentarios', function () {
 //     return view('comentarios');
