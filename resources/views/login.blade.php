@@ -21,18 +21,25 @@
             </script>  
         </div>
 
-        <form id="formLogin" action="comentarios">
-        
+        <form id="formLogin" action="{{ url('logar') }}" method="POST">
+            @csrf
             <div id="inputsLogin" class="input-group">
                 <div id="email">
                     <label for="inputEmail">Email:</label>
-                    <input type="email" id="inputEmail" class="form-control" required>
+                    <input type="email" id="inputEmail" class="form-control" name="emailLogin" value="{{ old('emailLogin') }}" required>
+                    @error('emailLogin')
+                        <br>
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
                 
                 <div id="senha">
                     <label for="inputSenha" style="margin-top: 15px;">Senha:</label> 
-                    <input type="password" id="inputSenha" class="form-control" required>
+                    <input type="password" id="inputSenha" class="form-control" name="senhaLogin" required>
                     <span class="glyphicon glyphicon-eye-open mostrarSenha" aria-hidden="true"></span>
+                    @error('senhaLogin')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
                 
             </div>
@@ -105,16 +112,6 @@
                                     Login com Google
                                 </button>
                             </div>
-<!-- 
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif -->
 
                             <button type="submit" class="btn btn-default btnExt">Criar Conta</button>
     
@@ -131,7 +128,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        @if ($errors->any())
+        @if (session('erroDeCadastro'))
             $('#criarConta').modal('show');
         @endif
     });

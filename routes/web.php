@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 Use App\Http\Controllers\UsuarioController;
+Use App\Http\Controllers\ComentarioController;
+Use App\Http\Controllers\LoginController;
+Use App\Http\Controllers\AtualizacaoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,18 +17,16 @@ Use App\Http\Controllers\UsuarioController;
 |
 */
 
-// Route::get('usuario', [UsuarioController::class, 'index']);
+Route::get('/', [LoginController::class, 'index'])->name('login');
 
-Route::get('/', function () {
-    return view('login');
-});
+Route::post('/logar', [LoginController::class, 'logar'])->name('logar');
 
-Route::post('register', [UsuarioController::class, 'register'])->name('register');
+Route::post('register ', [UsuarioController::class, 'register'])->name('register');
 
-// Route::get('/comentarios', function () {
-//     return view('comentarios');
-// });
+Route::get('/comentarios', [ComentarioController::class, 'index'])->name('comentarios');
 
-// Route::get('/atualizacao', function () {
-//     return view('atualizacao');
-// });
+Route::post('store', [ComentarioController::class, 'store'])->name('store');
+
+Route::get('/atualizacao', [AtualizacaoController::class, 'index'])->name('index');
+
+Route::put('/atualizacao/user/{id}', [UserController::class, 'update']);

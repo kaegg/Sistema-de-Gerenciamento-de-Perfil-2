@@ -3,25 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Comentario; // Assumindo que existe um modelo Comentario
+use App\Models\Comentario;
+use Auth;
 use Validator;
 
 class ComentarioController extends Controller
 {
-    // Função para listar todos os comentários
-    public function index()
-    {
-        // Busca todos os comentários do banco de dados
-        $comentarios = Comentario::all();
+    
+    public function index(){
+        // $comentarios = Comentario::with('usuario')->get();
 
-        // Passa os comentários para a view
-        return view('comentarios.index', compact('comentarios'));
+        return view('comentarios');
+        // if (Auth::check()) {
+        // } else {
+        //     return redirect()->route('login');
+        // }
     }
 
-    // Função para adicionar um novo comentário
-    public function store(Request $request)
-    {
-        // Validação dos dados do formulário
+    public function store(Request $request){
+        dd("teste");
+
         $validator = Validator::make($request->all(), [
             'comentario' => 'required',
         ], [
@@ -29,16 +30,23 @@ class ComentarioController extends Controller
         ]);
 
         if ($validator->fails()) {
-            // Retorna para a página anterior com os erros e os dados do formulário
             return back()->withErrors($validator)->withInput();
         }
 
-        // Criação do comentário
+        $userId = Auth::id();
+
+        dd($userId);
+
         Comentario::create([
-            'comentario' => $request->comentario,
+            "comentario" => $request->comentario,
+            "idUsuario" => $userId
         ]);
 
         // Redireciona de volta para a página de comentários com uma mensagem de sucesso
         return redirect()->route('comentarios.index')->with('success', 'Comentário adicionado com sucesso!');
+    }
+
+    public function teste(Request $request){
+        dd("entrou");
     }
 }

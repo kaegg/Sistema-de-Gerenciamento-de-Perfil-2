@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +12,6 @@
     <link rel="stylesheet" href="{{ asset('src/css/index.css') }}">
     <script src="{{ asset('src/js/index.js') }}"></script>
 </head>
-</head>
 <body>
     <nav>
         <ul class="nav nav-tabs navbar-fixed-top">
@@ -23,15 +23,18 @@
     <div id="comentarios" class="container">
         <h1 id="tituloComentarios">Comentários e Sugestões</h1>
         
-        <form id="comentariosForm">
+        <form id="comentariosForm" action="{{ url('store') }}" method="POST">
+            @csrf
             <div id="inputsComentarios">
                 <div class="form-group">
                     <label for="comentario">Comentário:</label>
-                    <textarea id="comentario" name="comentario" class="form-control comentario"></textarea>
-                    <span id="comentarioError" class="error-message"></span>
+                    <textarea id="comentario" name="comentario" class="form-control comentario" rows="4" required></textarea>
+                    @error('comentario')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
-                <button type="submit" id="btnEnviarComentario" class="btn btn-default btnExt">Comentar</button>
+                <button type="submit" value="submit" id="btnEnviarComentario" class="btn btn-default btnExt">Comentar</button>
             </div>
         </form>
         
@@ -39,19 +42,19 @@
             <h2>Comentários Recentes</h2>
             <ul id="comentariosUl">
                 <li>
-                    <img src="./src/img/profile.png" alt="Imagem do perfil" class="iconePerfil">
+                    <img src="./src/img/profile.png" alt="Imagem do perfil de John Doe" class="iconePerfil">
                     <span>John Doe</span>
-                    <textarea id="comentario" name="comentario" class="form-control comentario" readonly>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum fugit, incidunt minus ea, voluptates praesentium, perspiciatis exercitationem repellendus sit voluptatum dolor quod libero beatae architecto dolorem consequuntur. Quis, facilis aliquid.</textarea>
+                    <textarea id="comentario1" name="comentario" class="form-control comentario" readonly>Lorem ipsum dolor sit amet consectetur adipisicing elit...</textarea>
                 </li>
                 <li>
-                    <img src="./src/img/kauan.jpg" alt="Imagem do perfil" class="iconePerfil">
+                    <img src="./src/img/kauan.jpg" alt="Imagem do perfil de Kauan Eguchi" class="iconePerfil">
                     <span>Kauan Eguchi</span>
-                    <textarea id="comentario" name="comentario" class="form-control comentario" readonly>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum fugit, incidunt minus ea, voluptates praesentium, perspiciatis exercitationem repellendus sit voluptatum dolor quod libero beatae architecto dolorem consequuntur. Quis, facilis aliquid.</textarea>
+                    <textarea id="comentario2" name="comentario" class="form-control comentario" readonly>Lorem ipsum dolor sit amet consectetur adipisicing elit...</textarea>
                 </li>
                 <li>
-                    <img src="./src/img/file.enc" alt="Imagem do perfil" class="iconePerfil">
+                    <img src="./src/img/file.enc" alt="Imagem do perfil de Leonardo Almenara" class="iconePerfil">
                     <span>Leonardo Almenara</span>
-                    <textarea id="comentario" name="comentario" class="form-control comentario" readonly>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum fugit, incidunt minus ea, voluptates praesentium, perspiciatis exercitationem repellendus sit voluptatum dolor quod libero beatae architecto dolorem consequuntur. Quis, facilis aliquid.</textarea>
+                    <textarea id="comentario3" name="comentario" class="form-control comentario" readonly>Lorem ipsum dolor sit amet consectetur adipisicing elit...</textarea>
                 </li>
             </ul>
         </div>

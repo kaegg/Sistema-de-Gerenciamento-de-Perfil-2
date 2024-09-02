@@ -13,25 +13,30 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('usuario', function(Blueprint $table){
-            $table->bigIncrements('idUsuario');
-            $table->string('nome', length: 20);
-            $table->string('sobrenome', length: 50);
-            $table->string('rg', length: 20);
-            $table->string('cpf', length: 14);
-            $table->string('endereco', length: 50);
-            $table->integer('numero');
-            $table->string('bairro', length: 50);
-            $table->string('complemento', length: 20);
-            $table->string('uf', length: 2);
-            $table->string('telefone', length: 14);
-            $table->string('email', length: 100)->nullable(false);
-            $table->string('senha', length: 100)->nullable(false);
-            $table->foreignId('idCartao');
-            $table->foreignId('idPix');
-            $table->binary('foto');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('usuario')) {
+            Schema::create('usuario', function (Blueprint $table) {
+                $table->bigIncrements('idUsuario')->unsigned();
+                $table->string('nome')->nullable();
+                $table->string('sobrenome')->nullable();
+                $table->string('rg')->nullable();
+                $table->string('cpf')->nullable();
+                $table->string('endereco')->nullable();
+                $table->integer('numero')->nullable();
+                $table->string('bairro')->nullable();
+                $table->string('complemento')->nullable();
+                $table->string('uf')->nullable();
+                $table->string('telefone')->nullable();
+                $table->string('email')->unique();
+                $table->string('senha');
+                $table->unsignedBigInteger('idCartao')->nullable();
+                $table->unsignedBigInteger('idPix')->nullable();
+                $table->binary('foto')->nullable();
+                $table->timestamps();
+
+                $table->foreign('idCartao')->references('id')->on('cartao')->onDelete('set null');
+                $table->foreign('idPix')->references('id')->on('pix')->onDelete('set null');
+            });
+        }
     }
 
     /**

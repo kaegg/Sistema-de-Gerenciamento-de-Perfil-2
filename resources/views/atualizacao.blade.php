@@ -31,7 +31,8 @@
             <input type="file" id="imgPerfil" accept="image/*" style="display: none;">
         </div>
 
-        <form id="updateProfileForm">
+        <form id="updateProfileForm" action="{{ url('/atualizacao/user/{id}') }}" method="PUT">
+            @csrf
             <div id="inputsUpdateProfile" class="input-group">
 
                 <div class="row">
