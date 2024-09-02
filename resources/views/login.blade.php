@@ -21,7 +21,7 @@
             </script>  
         </div>
 
-        <form id="formLogin" action="{{ url('logar') }}" method="POST">
+        <form id="formLogin" action="{{ route('login.store') }}" method="POST">
             @csrf
             <div id="inputsLogin" class="input-group">
                 <div id="email">

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
@@ -13,7 +13,7 @@ class LoginController extends Controller
         return view('login');
     }
 
-    public function logar(Request $request) {
+    public function store(Request $request) {
         $request->validate([
             'emailLogin' => 'required|email',
             'senhaLogin' => 'required',
@@ -25,10 +25,11 @@ class LoginController extends Controller
     
         $credentials = [
             'email' => $request->input('emailLogin'),
-            'password' => Hash::make($request->input('senhaLogin'))
+            'senha' => Hash::make($request->input('senhaLogin'))
         ];
     
         if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
             return redirect()->intended('comentarios');
         }
 

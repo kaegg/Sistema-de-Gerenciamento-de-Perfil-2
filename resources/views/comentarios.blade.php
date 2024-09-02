@@ -23,7 +23,7 @@
     <div id="comentarios" class="container">
         <h1 id="tituloComentarios">Comentários e Sugestões</h1>
         
-        <form id="comentariosForm" action="{{ url('store') }}" method="POST">
+        <form id="comentariosForm" action="{{ route('comentario.store') }}" method="POST">
             @csrf
             <div id="inputsComentarios">
                 <div class="form-group">

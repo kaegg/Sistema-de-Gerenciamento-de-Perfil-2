@@ -19,13 +19,13 @@ Use App\Http\Controllers\AtualizacaoController;
 
 Route::get('/', [LoginController::class, 'index'])->name('login');
 
-Route::post('/logar', [LoginController::class, 'logar'])->name('logar');
+Route::post('/login', [LoginController::class, 'store'])->name('login.store');
 
 Route::post('register ', [UsuarioController::class, 'register'])->name('register');
 
 Route::get('/comentarios', [ComentarioController::class, 'index'])->name('comentarios');
 
-Route::post('store', [ComentarioController::class, 'store'])->name('store');
+Route::post('/comentario', [ComentarioController::class, 'store'])->name('comentario.store');
 
 Route::get('/atualizacao', [AtualizacaoController::class, 'index'])->name('index');
 
