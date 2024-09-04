@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('cartao', function(Blueprint $table){
             $table->bigIncrements('idCartao');
             $table->foreignId('idUsuario');
+            $table->string('nomeTitular');
             $table->string('numeroCartao', length: 50);
             $table->date('validade');
             $table->integer('cvv');

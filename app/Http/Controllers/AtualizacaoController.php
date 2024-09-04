@@ -4,16 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\Usuario;
 
 class AtualizacaoController extends Controller
 {
     public function index(){
-        $usuario = Auth::user();
-
-        return view('atualizacao', ['usuario' => $usuario]);
-    }
-
-    public function update(Request $request, $id){
-        dd($request, $id);
+        if (Auth::check()) {
+            $usuario = Auth::user();
+            return view('atualizacao', ['usuario' => $usuario]);
+        } else {
+            return redirect()->route('login');
+        }
     }
 }

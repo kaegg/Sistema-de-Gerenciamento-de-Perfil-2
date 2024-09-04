@@ -23,10 +23,16 @@ Route::post('/login', [LoginController::class, 'store'])->name('login.store');
 
 Route::post('register ', [UsuarioController::class, 'register'])->name('register');
 
-Route::get('/comentarios', [ComentarioController::class, 'index'])->name('comentarios');
+Route::middleware('auth')->group(function () {
+    Route::get('/comentarios', [ComentarioController::class, 'index'])->name('comentarios');
+});
 
 Route::post('/comentario', [ComentarioController::class, 'store'])->name('comentario.store');
 
-Route::get('/atualizacao', [AtualizacaoController::class, 'index'])->name('index');
+Route::post('/comentario/{id}/like', [ComentarioController::class, 'like'])->name('like');
 
-Route::put('/atualizacao/user/{id}', [UserController::class, 'update']);
+Route::post('/comentario/{id}/deslike', [ComentarioController::class, 'deslike'])->name('deslike');
+
+Route::get('/atualizacao', [AtualizacaoController::class, 'index'])->name('index')->middleware('auth');
+
+Route::put('/atualizacao/usuario/{id}', [UsuarioController::class, 'update'])->name('atualizarUsuario');

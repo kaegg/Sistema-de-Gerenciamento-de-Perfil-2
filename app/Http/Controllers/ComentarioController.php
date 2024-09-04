@@ -4,25 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comentario;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class ComentarioController extends Controller
 {
     
     public function index(){
-        // $comentarios = Comentario::with('usuario')->get();
-
-        return view('comentarios');
-        // if (Auth::check()) {
-        // } else {
-        //     return redirect()->route('login');
-        // }
+        if (Auth::check()) {
+            $comentarios = Comentario::buscaTodosComentarios();
+            return view('comentarios', ['comentarios' => $comentarios]);
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function store(Request $request){
-        dd("teste");
-
         $validator = Validator::make($request->all(), [
             'comentario' => 'required',
         ], [
@@ -35,18 +32,23 @@ class ComentarioController extends Controller
 
         $userId = Auth::id();
 
-        dd($userId);
-
-        Comentario::create([
+        Comentario::criarComentario([
             "comentario" => $request->comentario,
             "idUsuario" => $userId
         ]);
 
-        // Redireciona de volta para a página de comentários com uma mensagem de sucesso
-        return redirect()->route('comentarios.index')->with('success', 'Comentário adicionado com sucesso!');
+        return redirect()->route('comentarios')->with('success', 'Comentário criado com sucesso!');
     }
 
-    public function teste(Request $request){
-        dd("entrou");
+    public function like($id){
+        $comentario = Comentario::findOrFail($id);
+        $comentario->increment('like');
+        return redirect()->route('comentarios');
+    }
+
+    public function deslike($id){
+        $comentario = Comentario::findOrFail($id);
+        $comentario->increment('deslike');
+        return redirect()->route('comentarios');
     }
 }

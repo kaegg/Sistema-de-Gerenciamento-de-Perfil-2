@@ -25,15 +25,13 @@ class LoginController extends Controller
     
         $credentials = [
             'email' => $request->input('emailLogin'),
-            'senha' => Hash::make($request->input('senhaLogin'))
+            'password' => $request->input('senhaLogin'),
         ];
     
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('comentarios');
+            return redirect()->route('comentarios');
         }
-
-        // dd($credentials, Auth::attempt($credentials));
     
         return back()->withErrors([
             'emailLogin' => 'As credenciais fornecidas estão incorretas.',

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->bigIncrements('idComentario');
             $table->foreignId('idUsuario');
             $table->string('comentario', length: 500);
-            $table->integer('like');
-            $table->integer('deslike');
+            $table->integer('like')->default(0);
+            $table->integer('deslike')->default(0);
             $table->timestamps();
         });
     }

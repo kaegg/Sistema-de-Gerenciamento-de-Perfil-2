@@ -22,6 +22,13 @@
 
     <div id="comentarios" class="container">
         <h1 id="tituloComentarios">Comentários e Sugestões</h1>
+
+        @if (session('success'))
+            <div id="mensagemComentario" class="alert alert-success alert-dismissible fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ session('success') }}
+            </div>
+        @endif
         
         <form id="comentariosForm" action="{{ route('comentario.store') }}" method="POST">
             @csrf
@@ -41,21 +48,38 @@
         <div id="comentariosList">
             <h2>Comentários Recentes</h2>
             <ul id="comentariosUl">
+                @foreach ($comentarios as $comentario)
                 <li>
-                    <img src="./src/img/profile.png" alt="Imagem do perfil de John Doe" class="iconePerfil">
-                    <span>John Doe</span>
-                    <textarea id="comentario1" name="comentario" class="form-control comentario" readonly>Lorem ipsum dolor sit amet consectetur adipisicing elit...</textarea>
+                    @if ($comentario->usuario->foto)
+                        <img src="data:image/png;base64,{{ base64_encode($comentario->usuario->foto) }}" alt="Imagem do perfil de {{ $comentario->usuario->nome }}" class="iconePerfil">
+                    @else
+                        <img src="./src/img/profile.png" alt="Imagem do perfil de {{ $comentario->usuario->nome }}" class="iconePerfil">
+                    @endif
+
+                    <span>{{ $comentario->usuario->nome }}</span>
+                    <span>{{ $comentario->created_at->format('d/m/Y') }}</span>
+                    <textarea id="comentario1" name="comentario" class="form-control comentario" readonly>{{ $comentario->comentario }}</textarea>
+                
+                    <div class="like-deslike" style="margin-top: 15px">
+                        <form action="{{ route('like', $comentario->idComentario) }}" method="POST" style="display: inline;">
+                            @csrf
+                            <button type="submit" style="background: none; border: none; cursor: pointer;">
+                                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" style="font-size: 20px; color: #5cb85c;"></span>
+                            </button>
+                        </form>
+                        <span style="font-size: 16px; color: #5cb85c;">{{ $comentario->like }}</span>
+                        
+                        <form action="{{ route('deslike', $comentario->idComentario) }}" method="POST" style="display: inline;">
+                            @csrf
+                            <button type="submit" style="background: none; border: none; cursor: pointer;">
+                                <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true" style="font-size: 20px; color: #d9534f;"></span>
+                            </button>
+                        </form>
+                        <span style="font-size: 16px; color: #d9534f;">{{ $comentario->deslike }}</span>
+                    </div>
+                
                 </li>
-                <li>
-                    <img src="./src/img/kauan.jpg" alt="Imagem do perfil de Kauan Eguchi" class="iconePerfil">
-                    <span>Kauan Eguchi</span>
-                    <textarea id="comentario2" name="comentario" class="form-control comentario" readonly>Lorem ipsum dolor sit amet consectetur adipisicing elit...</textarea>
-                </li>
-                <li>
-                    <img src="./src/img/file.enc" alt="Imagem do perfil de Leonardo Almenara" class="iconePerfil">
-                    <span>Leonardo Almenara</span>
-                    <textarea id="comentario3" name="comentario" class="form-control comentario" readonly>Lorem ipsum dolor sit amet consectetur adipisicing elit...</textarea>
-                </li>
+                @endforeach
             </ul>
         </div>
     </div>

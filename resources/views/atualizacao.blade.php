@@ -13,38 +13,66 @@
     <script src="{{ asset('src/js/index.js') }}"></script>
 </head>
 <body>
-    <nav>
-        <ul class="nav nav-tabs navbar-fixed-top">
-            <li role="presentation"><a href="./comentarios">Comentários</a></li>
-            <li role="presentation" class="active"><a href="#">Atualizar perfil</a></li>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <ul class="nav nav-tabs">
+        <li role="presentation"><a href="./comentarios">Comentários</a></li>
+        <li role="presentation" class="active"><a href="#">Atualizar perfil</a></li>
+        <ul class="nav navbar-nav navbar-right">
+            <!-- Imagem do usuário -->
+            <li role="presentation">
+                @if ($usuario->foto)
+                    <img src="data:image/png;base64,{{ base64_encode($usuario->foto) }}" alt="Imagem do perfil de {{ $usuario->nome }}" class="iconePerfil">
+                @else
+                    <img src="./src/img/profile.png" alt="Imagem do perfil de {{ $usuario->nome }}" class="iconePerfil">
+                @endif
+            </li>
+
+            <!-- Nome do usuário -->
+            <li role="presentation" class="navbar-text">
+                {{ $usuario->nome }}
+            </li>
+
+            <!-- Botão de Sair -->
+            <li role="presentation">
+                <form  method="POST" style="display: inline;">
+                    @csrf
+                    <button type="submit" class="btn btn-link navbar-btn">Sair</button>
+                </form>
+            </li>
         </ul>
-    </nav>
+    </ul>
+</nav>
 
     <div class="container" id="updateProfile" >
-        <div id="tituloUpdateProfile">
-            <h1>Atualizar Perfil 
-                <div class="profile-wrapper">
-                    <img src="./src/img/profile.png" alt="Imagem do perfil" class="iconePerfil" id="imagemPerfil">
-                    <span class="glyphicon glyphicon-pencil edit-icon" aria-hidden="true"></span>
-                </div>
-            </h1>
-            <input type="file" id="imgPerfil" accept="image/*" style="display: none;">
-        </div>
-
-        <form id="updateProfileForm" action="{{ url('/atualizacao/user/{id}') }}" method="PUT">
+        <form id="updateProfileForm" action="{{ route('atualizarUsuario', $usuario->idUsuario) }}" method="POST">
             @csrf
+            @method('PUT')
+            <div id="tituloUpdateProfile">
+                <h1>Atualizar Perfil 
+                    <div class="profile-wrapper">
+                        @if ($usuario->foto)
+                            <img src="data:image/png;base64,{{ $usuario->foto }}" alt="Imagem do perfil de {{ $usuario->nome }}" id="imagemPerfil" class="iconePerfil" >
+                        @else
+                            <img src="./src/img/profile.png" alt="Imagem do perfil de {{ $usuario->nome }}" id="imagemPerfil" class="iconePerfil">
+                        @endif
+                        <span class="glyphicon glyphicon-pencil edit-icon" aria-hidden="true"></span>
+                    </div>
+                </h1>
+                <input type="file" id="imgPerfil" accept="image/*" enctype="multipart/form-data" name="foto" style="display: none;">
+            </div>
+
             <div id="inputsUpdateProfile" class="input-group">
 
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="name">Nome:</label>
-                        <input type="text" id="name" class="form-control" name="nome" required>
+                        <input type="text" id="name" class="form-control" name="nome" value="{{ $usuario->nome }}">
                         <span id="nameError" class="error-message"></span>
                     </div>
                     
                     <div class="form-group col-md-6">
                         <label for="lastName">Sobrenome:</label>
-                        <input type="text" id="lastName" class="form-control" name="sobrenome" required>
+                        <input type="text" id="lastName" class="form-control" name="sobrenome" value="{{ $usuario->sobrenome }}">
                         <span id="lastNameError" class="error-message"></span>  
                     </div>
                 </div>
@@ -52,13 +80,13 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="rg" style="margin-top: 15px;">RG:</label>
-                        <input type="text" id="rg" class="form-control" name="rg" required>
+                        <input type="text" id="rg" class="form-control" name="rg" value="{{ $usuario->rg }}">
                         <span id="rgError" class="error-message"></span>
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="cpf" style="margin-top: 15px;">CPF:</label>
-                        <input type="text" id="cpf" class="form-control" name="cpf" required>
+                        <input type="text" id="cpf" class="form-control" name="cpf" value="{{ $usuario->cpf }}">
                         <span id="cpfError" class="error-message"></span>
                     </div>
                 </div>
@@ -66,19 +94,19 @@
                 <div class="row">
                     <div class="form-group col-md-4">
                         <label for="cep" style="margin-top: 15px;">CEP:</label>
-                        <input type="text" id="cep" class="form-control" name="cep" required>
+                        <input type="text" id="cep" class="form-control" name="cep" value="{{ $usuario->cep }}">
                         <span id="cepError" class="error-message"></span>
                     </div>
                     
                     <div class="form-group col-md-6">
                         <label for="address" style="margin-top: 15px;">Endereço:</label>
-                        <input type="text" id="address" class="form-control" name="endereco" required>
+                        <input type="text" id="address" class="form-control" name="endereco" value="{{ $usuario->endereco }}">
                         <span id="addressError" class="error-message"></span>
                     </div>
                     
                     <div class="form-group col-md-2">
                         <label for="numero" style="margin-top: 15px;">N°:</label>
-                        <input type="number" id="numero" class="form-control" name="numero" required>
+                        <input type="number" id="numero" class="form-control" name="numero" value="{{ $usuario->numero }}">
                         <span id="numeroError" class="error-message"></span>
                     </div>
                 </div>
@@ -86,19 +114,19 @@
                 <div class="row">
                     <div class="form-group col-md-4">
                         <label for="bairro" style="margin-top: 15px;">Bairro:</label>
-                        <input type="text" id="bairro" class="form-control" name="bairro" required>
+                        <input type="text" id="bairro" class="form-control" name="bairro" value="{{ $usuario->bairro }}">
                         <span id="bairroError" class="error-message"></span>
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="complemento" style="margin-top: 15px;">Complemento:</label>
-                        <input type="text" id="complemento" class="form-control" name="complemento" required>
+                        <input type="text" id="complemento" class="form-control" name="complemento" value="{{ $usuario->complemento }}">
                         <span id="complementoError" class="error-message"></span>
                     </div>
 
                     <div class="form-group col-md-2">
                         <label for="uf" style="margin-top: 15px;">UF:</label>
-                        <input type="text" id="uf" class="form-control" name="uf" required>
+                        <input type="text" id="uf" class="form-control" name="uf" value="{{ $usuario->uf }}">
                         <span id="ufError" class="error-message"></span>
                     </div>
                 </div>
@@ -106,13 +134,13 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="phone" style="margin-top: 15px;">Telefone:</label>
-                        <input type="text" id="phone" class="form-control" name="telefone" required>
+                        <input type="text" id="phone" class="form-control" name="telefone" value="{{ $usuario->telefone }}">
                         <span id="phoneError" class="error-message"></span>
                     </div>
     
                     <div class="form-group col-md-6">
                         <label for="email" style="margin-top: 15px;">E-mail:</label>
-                        <input type="email" id="email" class="form-control inputs" name="email" required>
+                        <input type="email" id="email" class="form-control inputs" name="email" value="{{ $usuario->email }}">
                         <span id="emailError" class="error-message"></span>
                     </div>
                 </div>
@@ -161,23 +189,23 @@
             
                             <div class="form-group">
                                 <label for="nomeTitular">Nome:</label>
-                                <input type="text" class="form-control inputs" id="nomeTitular" name="nomeTitular" required>
+                                <input type="text" class="form-control inputs" id="nomeTitular" name="nomeTitular">
                             </div>
 
                             <div class="form-group">
                                 <label for="numeroCartao">Número do cartão:</label>
-                                <input type="number" class="form-control inputs" id="numeroCartao" name="numeroCartao" required>
+                                <input type="number" class="form-control inputs" id="numeroCartao" name="numeroCartao">
                             </div>
 
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="cvv">CVV:</label>
-                                    <input type="number" class="form-control inputs" id="cvv" name="cvv" required>
+                                    <input type="number" class="form-control inputs" id="cvv" name="cvv">
                                 </div>
     
                                 <div class="form-group col-md-6">
                                     <label for="validade">Validade:</label>
-                                    <input type="month" class="form-control inputs text-center" id="validade" name="validade" required>
+                                    <input type="month" class="form-control inputs text-center" id="validade" name="validade">
                                 </div>
                             </div>
 
@@ -203,7 +231,7 @@
             
                             <div class="form-group">
                                 <label for="chave">Chave pix:</label>
-                                <input type="text" class="form-control inputs" id="chave" name="chave" required>
+                                <input type="text" class="form-control inputs" id="chave" name="chave">
                             </div>
 
                             <button type="submit" class="btn btn-default btnExt">Salvar</button>
