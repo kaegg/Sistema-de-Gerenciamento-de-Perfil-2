@@ -1,0 +1,12 @@
+Avisos gerais:
+
+	Leonardo Almenara Ferreira - Ra128432
+	Kauan Eguchi		   - Ra128854
+
+	Para configurar o acesso ao banco de dados, siga os seguintes passos:
+
+
+	Abra o arquivo .env e altere o valor da variável DB_DATABASE para 	gerenciamento_de_perfil.
+	Acesse o phpMyAdmin através do link http://localhost/phpmyadmin.
+	No phpMyAdmin, clique no ícone "Novo" no painel lateral esquerdo.
+	Crie um novo banco de dados com o nome gerenciamento_de_perfil, que deve 	ser o mesmo valor configurado no .env.
