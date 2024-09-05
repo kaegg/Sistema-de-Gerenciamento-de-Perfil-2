@@ -42,7 +42,7 @@ class Usuario extends Authenticatable
         return $this->hasMany(Comentario::class, 'idUsuario', 'id');
     }
 
-    // public static function buscarUsuario($id){
-    //     return self::where('idUsuario', $id)->first();    
-    // }
+    public static function buscarUsuario($id){
+        return self::where('idUsuario', $id)->first();    
+    }
 }

@@ -37,5 +37,5 @@ class LoginController extends Controller
             'emailLogin' => 'As credenciais fornecidas estão incorretas.',
         ])->withInput();
     }
-    
+
 }

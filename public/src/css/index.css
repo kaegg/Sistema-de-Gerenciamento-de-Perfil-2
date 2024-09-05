@@ -251,3 +251,20 @@ input[type=number]::-webkit-inner-spin-button {
 #mensagemComentario {
     transition: opacity 0.5s ease-out;
 }
+
+.navbar-default .btn-link, .navbar-default .navbar-text  {
+    color: #fff;
+}
+
+.navbar-default:hover .btn-link:hover {
+    color: #777;
+}
+
+.iconeNavBar {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 15px;
+    background-color: #fff;
+    border-radius: 50px;
+    padding: 0px;
+}

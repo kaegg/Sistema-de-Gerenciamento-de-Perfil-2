@@ -20,6 +20,7 @@ return new class extends Migration
                 $table->string('sobrenome')->nullable();
                 $table->string('rg')->nullable();
                 $table->string('cpf')->nullable();
+                $table->string('cep')->nullable();
                 $table->string('endereco')->nullable();
                 $table->integer('numero')->nullable();
                 $table->string('bairro')->nullable();

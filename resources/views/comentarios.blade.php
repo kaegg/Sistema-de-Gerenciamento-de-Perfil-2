@@ -13,10 +13,28 @@
     <script src="{{ asset('src/js/index.js') }}"></script>
 </head>
 <body>
-    <nav>
-        <ul class="nav nav-tabs navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <ul class="nav nav-tabs">
             <li role="presentation" class="active"><a href="#">Comentários</a></li>
             <li role="presentation"><a href="./atualizacao">Atualizar perfil</a></li>
+            <ul class="nav navbar-nav navbar-right" style="margin-right: 25px;">
+
+                <li role="presentation">
+                    <img src="./src/img/profile.png" alt="Imagem do perfil" class="iconeNavBar" style="margin-top: 5px; margin-bottom: 10px">
+                </li>
+
+
+                <li role="presentation" class="navbar-text">
+                    {{ $usuario->nome }}
+                </li>
+
+                <li role="presentation">
+                    <form  method="POST" style="display: inline;" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="btn btn-link navbar-btn">Sair</button>
+                    </form>
+                </li>
+            </ul>
         </ul>
     </nav>
 
@@ -50,13 +68,14 @@
             <ul id="comentariosUl">
                 @foreach ($comentarios as $comentario)
                 <li>
-                    @if ($comentario->usuario->foto)
-                        <img src="data:image/png;base64,{{ base64_encode($comentario->usuario->foto) }}" alt="Imagem do perfil de {{ $comentario->usuario->nome }}" class="iconePerfil">
-                    @else
-                        <img src="./src/img/profile.png" alt="Imagem do perfil de {{ $comentario->usuario->nome }}" class="iconePerfil">
-                    @endif
 
-                    <span>{{ $comentario->usuario->nome }}</span>
+                    <img src="./src/img/profile.png" alt="Imagem do perfil" class="iconePerfil">
+                    
+                    @if($comentario->usuario)
+                        <span>{{ $comentario->usuario->nome }}</span>
+                    @else
+                        <span>Usuario deletado</span>
+                    @endif
                     <span>{{ $comentario->created_at->format('d/m/Y') }}</span>
                     <textarea id="comentario1" name="comentario" class="form-control comentario" readonly>{{ $comentario->comentario }}</textarea>
                 

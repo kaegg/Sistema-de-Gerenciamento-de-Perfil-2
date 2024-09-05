@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Input;
 use Redirect;
 use Session;
-use Validator;
 
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use App\Models\Usuario;
@@ -52,7 +52,7 @@ class UsuarioController extends Controller
             'sobrenome' => 'nullable|string|max:255',
             'rg' => 'nullable|string|max:20',
             'cpf' => 'nullable|string|max:14',
-            // 'cep' => 'nullable|string|max:9',
+            'cep' => 'nullable|string|max:9',
             'endereco' => 'nullable|string|max:255',
             'numero' => 'nullable|integer',
             'bairro' => 'nullable|string|max:255',
@@ -68,7 +68,7 @@ class UsuarioController extends Controller
         $usuario->sobrenome = $request->input('sobrenome');
         $usuario->rg = $request->input('rg');
         $usuario->cpf = $request->input('cpf');
-        // $usuario->cep = $request->input('cep');
+        $usuario->cep = $request->input('cep');
         $usuario->endereco = $request->input('endereco');
         $usuario->numero = $request->input('numero');
         $usuario->bairro = $request->input('bairro');
@@ -88,5 +88,13 @@ class UsuarioController extends Controller
         $usuario->save();
 
         return redirect()->route('index')->with('success', 'Perfil atualizado com sucesso!');
+    }
+
+    public function destroy($id)
+    {
+        $usuario = Usuario::findOrFail($id);
+        $usuario->delete();
+
+        return redirect()->route('index')->with('success', 'Conta excluída com sucesso!');
     }
 }

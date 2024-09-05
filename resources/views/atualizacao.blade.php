@@ -13,35 +13,26 @@
     <script src="{{ asset('src/js/index.js') }}"></script>
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top">
-    <ul class="nav nav-tabs">
-        <li role="presentation"><a href="./comentarios">Comentários</a></li>
-        <li role="presentation" class="active"><a href="#">Atualizar perfil</a></li>
-        <ul class="nav navbar-nav navbar-right">
-            <!-- Imagem do usuário -->
-            <li role="presentation">
-                @if ($usuario->foto)
-                    <img src="data:image/png;base64,{{ base64_encode($usuario->foto) }}" alt="Imagem do perfil de {{ $usuario->nome }}" class="iconePerfil">
-                @else
-                    <img src="./src/img/profile.png" alt="Imagem do perfil de {{ $usuario->nome }}" class="iconePerfil">
-                @endif
-            </li>
-
-            <!-- Nome do usuário -->
-            <li role="presentation" class="navbar-text">
-                {{ $usuario->nome }}
-            </li>
-
-            <!-- Botão de Sair -->
-            <li role="presentation">
-                <form  method="POST" style="display: inline;">
-                    @csrf
-                    <button type="submit" class="btn btn-link navbar-btn">Sair</button>
-                </form>
-            </li>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a href="./comentarios">Comentários</a></li>
+            <li role="presentation" class="active"><a href="#">Atualizar perfil</a></li>
+            <ul class="nav navbar-nav navbar-right" style="margin-right: 25px;">
+                <li role="presentation">
+                     <img src="./src/img/profile.png" alt="Imagem do perfil de {{ $usuario->nome }}" class="iconeNavBar" style="margin-top: 5px; margin-bottom: 10px">
+                </li>
+                <li role="presentation" class="navbar-text">
+                    {{ $usuario->nome }}
+                </li>
+                <li role="presentation">
+                    <form  method="POST" style="display: inline;" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="btn btn-link navbar-btn">Sair</button>
+                    </form>
+                </li>
+            </ul>
         </ul>
-    </ul>
-</nav>
+    </nav>
 
     <div class="container" id="updateProfile" >
         <form id="updateProfileForm" action="{{ route('atualizarUsuario', $usuario->idUsuario) }}" method="POST">
@@ -168,10 +159,17 @@
                 </div>
             </div>
 
-            <div id="buttonUpdateProfile">
+            <div id="buttonUpdateProfile" >
                 <button type="submit" id="btnAtualizar" class="btn btn-default btnExt">
-                    <span class="glyphicon glyphicon glyphicon-floppy-disk"></span> Atualizar</button>
+                    <span class="glyphicon glyphicon glyphicon-floppy-disk"></span> Atualizar </button>
             </div>
+
+        </form>
+
+        <form action="{{ route('excluirConta', $usuario->idUsuario) }}" method="POST" style="display: inline; margin-top: 10px">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger btnExt"><span class="glyphicon glyphicon-trash"></span> Excluir Conta </button>
         </form>
 
         <!-- Modal para informações do cartão -->

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Comentario;
 use Illuminate\Support\Facades\Auth;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class ComentarioController extends Controller
 {
@@ -13,7 +13,8 @@ class ComentarioController extends Controller
     public function index(){
         if (Auth::check()) {
             $comentarios = Comentario::buscaTodosComentarios();
-            return view('comentarios', ['comentarios' => $comentarios]);
+            $usuario = Auth::user();
+            return view('comentarios', ['comentarios' => $comentarios],  ['usuario' => $usuario]);
         } else {
             return redirect()->route('login');
         }

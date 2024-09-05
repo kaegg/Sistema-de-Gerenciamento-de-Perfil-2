@@ -5,6 +5,7 @@ Use App\Http\Controllers\UsuarioController;
 Use App\Http\Controllers\ComentarioController;
 Use App\Http\Controllers\LoginController;
 Use App\Http\Controllers\AtualizacaoController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,10 @@ Route::post('/comentario/{id}/deslike', [ComentarioController::class, 'deslike']
 Route::get('/atualizacao', [AtualizacaoController::class, 'index'])->name('index')->middleware('auth');
 
 Route::put('/atualizacao/usuario/{id}', [UsuarioController::class, 'update'])->name('atualizarUsuario');
+
+Route::delete('/atualizacao/usuario/{id}', [UsuarioController::class, 'destroy'])->name('excluirConta');
+
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+})->name('logout');

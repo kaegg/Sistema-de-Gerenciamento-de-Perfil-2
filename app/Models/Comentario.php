@@ -26,6 +26,7 @@ class Comentario extends Model
     }
 
     public static function buscaTodosComentarios(){
+        
         return self::orderBy('created_at', 'desc')->get();
     }
 
